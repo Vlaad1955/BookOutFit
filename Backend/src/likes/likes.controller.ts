@@ -11,6 +11,7 @@ import { LikesService } from './likes.service';
 import { AuthGuard } from '@nestjs/passport';
 import { User } from '../common/decorator/user.decorator';
 import { BookQueryDto } from '../common/validator/books.query.validator';
+import { UUIDValidationPipe } from '../common/validator/uuid-validation.pipe';
 
 @Controller('likes')
 export class LikesController {
@@ -18,13 +19,19 @@ export class LikesController {
 
   @UseGuards(AuthGuard())
   @Post(':bookId')
-  likeBook(@Param('bookId') bookId: string, @User('id') userId: string) {
+  likeBook(
+    @Param('bookId', new UUIDValidationPipe(4)) bookId: string,
+    @User('id') userId: string,
+  ) {
     return this.likesService.likeBook(userId, bookId);
   }
 
   @UseGuards(AuthGuard())
   @Delete(':bookId')
-  unlikeBook(@Param('bookId') bookId: string, @User('id') userId: string) {
+  unlikeBook(
+    @Param('bookId', new UUIDValidationPipe(4)) bookId: string,
+    @User('id') userId: string,
+  ) {
     return this.likesService.unlikeBook(userId, bookId);
   }
 
@@ -35,7 +42,7 @@ export class LikesController {
   }
 
   @Get('count/:bookId')
-  getLikesCount(@Param('bookId') bookId: string) {
+  getLikesCount(@Param('bookId', new UUIDValidationPipe(4)) bookId: string) {
     return this.likesService.getLikesCount(bookId);
   }
 }

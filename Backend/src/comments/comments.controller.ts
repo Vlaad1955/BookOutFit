@@ -15,6 +15,7 @@ import { Comment } from '../database/entities/comment.entity';
 import { CommentQueryDto } from '../common/validator/comment.query.validator';
 import { AuthGuard } from '@nestjs/passport';
 import { User } from '../common/decorator/user.decorator';
+import { UUIDValidationPipe } from '../common/validator/uuid-validation.pipe';
 
 @Controller('comments')
 export class CommentsController {
@@ -35,14 +36,16 @@ export class CommentsController {
   }
 
   @Get('find/:id')
-  findOne(@Param('id') id: string): Promise<Comment> {
+  findOne(
+    @Param('id', new UUIDValidationPipe(4)) id: string,
+  ): Promise<Comment> {
     return this.commentsService.findOne(id);
   }
 
   @UseGuards(AuthGuard())
   @Patch('update/:id')
   async update(
-    @Param('id') id: string,
+    @Param('id', new UUIDValidationPipe(4)) id: string,
     @Body() Dto: UpdateCommentDto,
     @User('id') userId: string,
   ): Promise<string> {
@@ -52,7 +55,7 @@ export class CommentsController {
   @UseGuards(AuthGuard())
   @Delete('delete/:id')
   async remove(
-    @Param('id') id: string,
+    @Param('id', new UUIDValidationPipe(4)) id: string,
     @User('id') userId: string,
   ): Promise<string> {
     return this.commentsService.remove(id, userId);

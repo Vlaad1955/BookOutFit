@@ -21,6 +21,7 @@ import { BookQueryDto } from '../common/validator/books.query.validator';
 import { AuthGuard } from '@nestjs/passport';
 import { RoleGuard } from '../common/guards/role.guard';
 import { Roles } from '../common/decorator/roles.decorator';
+import {UUIDValidationPipe} from "../common/validator/uuid-validation.pipe";
 
 @Controller('books')
 export class BooksController {
@@ -48,7 +49,7 @@ export class BooksController {
   @Patch('/update/:id')
   @UseInterceptors(FileInterceptor('image'))
   async update(
-    @Param('id') id: string,
+    @Param('id', new UUIDValidationPipe(4)) id: string,
     @Body() Dto: UpdateBookDto,
     @UploadedFile() file: Express.Multer.File,
   ): Promise<string> {
@@ -64,7 +65,7 @@ export class BooksController {
   @UseGuards(AuthGuard(), RoleGuard)
   @Put('/published/:id')
   async updatePublishedStatus(
-    @Param('id') id: string,
+    @Param('id', new UUIDValidationPipe(4)) id: string,
     @Body() Dto: UpdatePublishedDto,
   ): Promise<string> {
     return await this.booksService.published(id, Dto);
@@ -76,14 +77,14 @@ export class BooksController {
   }
 
   @Get('find/:id')
-  findOne(@Param('id') id: string): Promise<Book> {
+  findOne(@Param('id', new UUIDValidationPipe(4)) id: string): Promise<Book> {
     return this.booksService.findOne(id);
   }
 
   @Roles(`Admin`)
   @UseGuards(AuthGuard(), RoleGuard)
   @Delete('delete/:id')
-  remove(@Param('id') id: string): Promise<string> {
+  remove(@Param('id', new UUIDValidationPipe(4)) id: string): Promise<string> {
     return this.booksService.remove(id);
   }
 

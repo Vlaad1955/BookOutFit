@@ -15,6 +15,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { User } from '../common/decorator/user.decorator';
 import { Roles } from '../common/decorator/roles.decorator';
 import { RoleGuard } from '../common/guards/role.guard';
+import { UUIDValidationPipe } from '../common/validator/uuid-validation.pipe';
 
 @Controller('users')
 export class UsersController {
@@ -26,7 +27,7 @@ export class UsersController {
   }
 
   @Get('find/:id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id', new UUIDValidationPipe(4)) id: string) {
     return this.usersService.findOne(id);
   }
 
@@ -39,7 +40,7 @@ export class UsersController {
   @UseGuards(AuthGuard())
   @Patch('update/:id')
   update(
-    @Param('id') id: string,
+    @Param('id', new UUIDValidationPipe(4)) id: string,
     @Body() Dto: UpdateUserDto,
     @User('id') userId: string,
   ) {
@@ -49,20 +50,20 @@ export class UsersController {
   @Roles('Admin')
   @UseGuards(AuthGuard(), RoleGuard)
   @Patch('role/:id')
-  updateRole(@Param('id') id: string) {
+  updateRole(@Param('id', new UUIDValidationPipe(4)) id: string) {
     return this.usersService.roleUpdate(id);
   }
 
   @UseGuards(AuthGuard())
   @Delete('delete/:id')
-  remove(@Param('id') id: string, @User('id') userId: string) {
+  remove(@Param('id', new UUIDValidationPipe(4)) id: string, @User('id') userId: string) {
     return this.usersService.remove(id, userId);
   }
 
   @Roles('Admin')
   @UseGuards(AuthGuard(), RoleGuard)
   @Delete('exclude/:id')
-  exclude(@Param('id') id: string) {
+  exclude(@Param('id', new UUIDValidationPipe(4)) id: string) {
     return this.usersService.exclude(id);
   }
 }

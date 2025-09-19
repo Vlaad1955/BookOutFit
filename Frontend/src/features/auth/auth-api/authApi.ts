@@ -1,10 +1,12 @@
-import axiosInstance from "../auth-axios-instance/axiosInstance";
+import axiosAuthInstance from "../auth-axios-instance/axiosAuthInstance";
 import { UserSignInRequestDto } from "../authTypes/user-sign-in-request-dto";
 import { UserSignUpRequestDto } from "../authTypes/user-sign-up-request-dto";
+import axiosInstance from "@/features/auth/auth-axios-instance/axiosInstance";
 
 export const authApi = {
   signIn: (payload: UserSignInRequestDto) =>
-    axiosInstance.post("/auth/login", payload),
+      axiosAuthInstance.post("/auth/login", payload),
+
   signUp: (payload: UserSignUpRequestDto) => {
     const formData = new FormData();
     formData.append("email", payload.email);
@@ -17,12 +19,12 @@ export const authApi = {
       formData.append("image", payload.image);
     }
 
-    return axiosInstance.post("/auth/registration", formData, {
+    return axiosAuthInstance.post("/auth/registration", formData, {
       headers: { "Content-Type": "multipart/form-data" },
     });
   },
-  logout: () => axiosInstance.post("/auth/logout"),
 
+  logout: () => axiosInstance.post("/auth/logout"),
   resetPassword: (email: string) =>
-      axiosInstance.patch("/auth/resetPassword", { email }),
+      axiosAuthInstance.patch("/auth/resetPassword", { email }),
 };

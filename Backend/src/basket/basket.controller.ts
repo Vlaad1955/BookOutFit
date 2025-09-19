@@ -11,6 +11,7 @@ import { BasketService } from './basket.service';
 import { CreateBasketDto } from './dto/create-basket.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { User } from '../common/decorator/user.decorator';
+import {UUIDValidationPipe} from "../common/validator/uuid-validation.pipe";
 
 @Controller('basket')
 export class BasketController {
@@ -24,7 +25,7 @@ export class BasketController {
 
   @UseGuards(AuthGuard())
   @Delete('remove/:id')
-  remove(@Param('id') id: string, @User('id') userId: string) {
+  remove(@Param('id', new UUIDValidationPipe(4)) id: string, @User('id') userId: string) {
     return this.basketService.remove(id, userId);
   }
 

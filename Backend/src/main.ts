@@ -1,8 +1,9 @@
-import { NestFactory } from '@nestjs/core';
+import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as cookieParser from 'cookie-parser';
 import {
   BadRequestException,
+  ClassSerializerInterceptor,
   ValidationError,
   ValidationPipe,
 } from '@nestjs/common';
@@ -24,11 +25,21 @@ async function bootstrap() {
       forbidNonWhitelisted: true,
       disableErrorMessages: false,
       exceptionFactory: (errors: ValidationError[]) => {
-        console.error('🛑 Validation failed:', JSON.stringify(errors, null, 2));
-        throw new BadRequestException(errors);
+        const sanitizedErrors = errors.map((err) => {
+          const { target, value, ...rest } = err;
+          return rest;
+        });
+
+        console.error(
+          '🛑 Validation failed:',
+          JSON.stringify(sanitizedErrors, null, 2),
+        );
+        throw new BadRequestException(sanitizedErrors);
       },
     }),
   );
+
+  app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
 
   const config = new DocumentBuilder()
     .setTitle('API Documentation')
@@ -41,4 +52,5 @@ async function bootstrap() {
 
   await app.listen(process.env.PORT ?? 4000);
 }
+
 void bootstrap();

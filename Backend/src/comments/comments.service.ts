@@ -18,10 +18,8 @@ export class CommentsService {
   constructor(
     @InjectRepository(Comment)
     private readonly commentRepository: Repository<Comment>,
-
     @InjectRepository(Book)
     private readonly bookRepository: Repository<Book>,
-
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
     private readonly jwtService: JwtService,

@@ -7,6 +7,7 @@ import {
   IsOptional,
   IsString,
   IsUUID,
+  Min,
 } from 'class-validator';
 import { Transform, Type } from 'class-transformer';
 
@@ -33,6 +34,7 @@ export class CreateBookDto {
   @IsNumber()
   @Type(() => Number)
   @IsNotEmpty()
+  @Min(1, { message: 'The price must be greater than 0' })
   price: number;
 
   @IsString()

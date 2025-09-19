@@ -115,7 +115,7 @@ export class UsersService {
     const user = await this.findOne(id);
 
     if (user.id !== userId) {
-      throw new UnauthorizedException('Only the user can update his account');
+      throw new ForbiddenException('Only the user can update his account');
     }
 
     if (Dto.firstName) user.firstName = Dto.firstName;

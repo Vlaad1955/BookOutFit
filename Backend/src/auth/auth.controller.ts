@@ -7,7 +7,7 @@ import {
   UnauthorizedException,
   Headers,
   UseGuards,
-  Patch,
+  Patch, HttpCode,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import {
@@ -55,6 +55,7 @@ export class AuthController {
   }
 
   @Post('/login')
+  @HttpCode(200)
   async singInUser(
     @Body() dto: LoginDto,
     @Res({ passthrough: true }) res: Response,

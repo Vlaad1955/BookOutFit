@@ -19,6 +19,7 @@ import { NewsQueryDto } from '../common/validator/news.query.validator';
 import { Roles } from '../common/decorator/roles.decorator';
 import { AuthGuard } from '@nestjs/passport';
 import { RoleGuard } from '../common/guards/role.guard';
+import { UUIDValidationPipe } from '../common/validator/uuid-validation.pipe';
 
 @Controller('news')
 export class NewsController {
@@ -45,21 +46,24 @@ export class NewsController {
   }
 
   @Get('find/id/:id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id', new UUIDValidationPipe(4)) id: string) {
     return this.newsService.findOne(id);
   }
 
   @Roles(`Admin`)
   @UseGuards(AuthGuard(), RoleGuard)
   @Patch('update/:id')
-  update(@Param('id') id: string, @Body() Dto: UpdateNewsDto) {
+  update(
+    @Param('id', new UUIDValidationPipe(4)) id: string,
+    @Body() Dto: UpdateNewsDto,
+  ) {
     return this.newsService.update(id, Dto);
   }
 
   @Roles(`Admin`)
   @UseGuards(AuthGuard(), RoleGuard)
   @Delete('delete/:id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id', new UUIDValidationPipe(4)) id: string) {
     return this.newsService.remove(id);
   }
 }

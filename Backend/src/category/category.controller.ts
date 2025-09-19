@@ -19,6 +19,7 @@ import { CategoryQueryDto } from '../common/validator/category.query.validator';
 import { Roles } from '../common/decorator/roles.decorator';
 import { AuthGuard } from '@nestjs/passport';
 import { RoleGuard } from '../common/guards/role.guard';
+import {UUIDValidationPipe} from "../common/validator/uuid-validation.pipe";
 
 @Controller('category')
 export class CategoryController {
@@ -44,7 +45,7 @@ export class CategoryController {
   }
 
   @Get('find/id/:id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id', new UUIDValidationPipe(4)) id: string) {
     return this.categoryService.findOne(id);
   }
 
@@ -52,7 +53,7 @@ export class CategoryController {
   @UseGuards(AuthGuard(), RoleGuard)
   @Patch('update/:id')
   update(
-    @Param('id') id: string,
+    @Param('id', new UUIDValidationPipe(4)) id: string,
     @Body() Dto: UpdateCategoryDto,
   ): Promise<string> {
     return this.categoryService.update(id, Dto);
@@ -61,7 +62,7 @@ export class CategoryController {
   @Roles(`Admin`)
   @UseGuards(AuthGuard(), RoleGuard)
   @Delete('delete/:id')
-  remove(@Param('id') id: string): Promise<string> {
+  remove(@Param('id', new UUIDValidationPipe(4)) id: string): Promise<string> {
     return this.categoryService.remove(id);
   }
 }
