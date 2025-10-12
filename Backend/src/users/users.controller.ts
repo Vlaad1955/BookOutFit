@@ -21,7 +21,7 @@ import { UUIDValidationPipe } from '../common/validator/uuid-validation.pipe';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Get('/list')
+  @Get('/')
   findAll(@Query() query: UsersQueryDto) {
     return this.usersService.findAll(query);
   }
@@ -38,7 +38,7 @@ export class UsersController {
   }
 
   @UseGuards(AuthGuard())
-  @Patch('update/:id')
+  @Patch(':id')
   update(
     @Param('id', new UUIDValidationPipe(4)) id: string,
     @Body() Dto: UpdateUserDto,
@@ -55,8 +55,11 @@ export class UsersController {
   }
 
   @UseGuards(AuthGuard())
-  @Delete('delete/:id')
-  remove(@Param('id', new UUIDValidationPipe(4)) id: string, @User('id') userId: string) {
+  @Delete(':id')
+  remove(
+    @Param('id', new UUIDValidationPipe(4)) id: string,
+    @User('id') userId: string,
+  ) {
     return this.usersService.remove(id, userId);
   }
 

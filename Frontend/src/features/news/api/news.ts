@@ -8,5 +8,5 @@ export const newsApi = {
     order?: "ASC" | "DESC";
     page?: number;
     limit?: number;
-  }) => axiosInstance.get("/news/list", { params }),
+  }) => axiosInstance.get("/news", { params }),
 };

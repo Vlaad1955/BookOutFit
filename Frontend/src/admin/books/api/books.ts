@@ -10,7 +10,7 @@ export async function getAllBooks(queryParams: Record<string, unknown>) {
         Object.entries(queryParams).filter(([, v]) => v !== undefined)
     );
 
-    const response = await axiosInstance.get("/books/list", {
+    const response = await axiosInstance.get("/books/", {
         params: cleanedParams,
     });
 
@@ -46,7 +46,7 @@ export async function createBook(
         formData.append("author", bookData.author);
     }
 
-    const response = await axiosInstance.post("/books/create-book", formData, {
+    const response = await axiosInstance.post("/books/", formData, {
         headers: {
             "Content-Type": "multipart/form-data",
         },
@@ -81,7 +81,7 @@ export async function updateBook(
         formData.append("author", bookData.author);
     }
 
-    const response = await axiosInstance.patch(`/books/update/${id}`, formData, {
+    const response = await axiosInstance.patch(`/books/${id}`, formData, {
         headers: {
             "Content-Type": "multipart/form-data",
         },
@@ -94,11 +94,11 @@ export async function updatePublishedStatus(
     id: string,
     dto: UpdatePublishedDto
 ) {
-    const response = await axiosInstance.put(`/books/published/${id}`, dto);
+    const response = await axiosInstance.put(`/books/${id}`, dto);
     return response.data;
 }
 
 export async function removeBook(id: string) {
-    const response = await axiosInstance.delete(`/books/delete/${id}`);
+    const response = await axiosInstance.delete(`/books/${id}`);
     return response.data;
 }

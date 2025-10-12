@@ -22,7 +22,7 @@ export class CommentsController {
   constructor(private readonly commentsService: CommentsService) {}
 
   @UseGuards(AuthGuard())
-  @Post('/create-comment')
+  @Post('/')
   async create(
     @Body() Dto: CreateCommentDto,
     @User('id') userId: string,
@@ -30,7 +30,7 @@ export class CommentsController {
     return this.commentsService.create(Dto, userId);
   }
 
-  @Get('/list')
+  @Get('/')
   findAll(@Query() query: CommentQueryDto) {
     return this.commentsService.findAll(query);
   }
@@ -43,7 +43,7 @@ export class CommentsController {
   }
 
   @UseGuards(AuthGuard())
-  @Patch('update/:id')
+  @Patch(':id')
   async update(
     @Param('id', new UUIDValidationPipe(4)) id: string,
     @Body() Dto: UpdateCommentDto,
@@ -53,7 +53,7 @@ export class CommentsController {
   }
 
   @UseGuards(AuthGuard())
-  @Delete('delete/:id')
+  @Delete(':id')
   async remove(
     @Param('id', new UUIDValidationPipe(4)) id: string,
     @User('id') userId: string,

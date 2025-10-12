@@ -19,6 +19,7 @@ interface AuthState {
   logout: () => Promise<void>;
   refresh: () => Promise<void>;
   setToken: (token: string | null) => void;
+  loadUser: () => Promise<void>;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
@@ -28,6 +29,25 @@ export const useAuthStore = create<AuthState>((set) => ({
   error: null,
   isInitialized: false,
   isLoggingOut: false,
+
+  loadUser: async () => {
+    const token = tokenStorage.getToken();
+    if (!token) {
+      set({ token: null, isAuthenticated: false });
+      useUserStore.getState().setUser(null);
+      return;
+    }
+
+    try {
+      const { data } = await userApi.fetchCurrentUser();
+      useUserStore.getState().setUser(data);
+      set({ token, isAuthenticated: true });
+    } catch {
+      tokenStorage.removeToken();
+      useUserStore.getState().setUser(null);
+      set({ token: null, isAuthenticated: false });
+    }
+  },
 
   setToken: (token) => {
     set({ token, isAuthenticated: !!token, isInitialized: true });

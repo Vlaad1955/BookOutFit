@@ -21,7 +21,7 @@ import { BookQueryDto } from '../common/validator/books.query.validator';
 import { AuthGuard } from '@nestjs/passport';
 import { RoleGuard } from '../common/guards/role.guard';
 import { Roles } from '../common/decorator/roles.decorator';
-import {UUIDValidationPipe} from "../common/validator/uuid-validation.pipe";
+import { UUIDValidationPipe } from '../common/validator/uuid-validation.pipe';
 
 @Controller('books')
 export class BooksController {
@@ -29,7 +29,7 @@ export class BooksController {
 
   @Roles(`Admin`)
   @UseGuards(AuthGuard(), RoleGuard)
-  @Post('/create-book')
+  @Post('/')
   @UseInterceptors(FileInterceptor('image'))
   async create(
     @Body() Dto: CreateBookDto,
@@ -46,7 +46,7 @@ export class BooksController {
 
   @Roles(`Admin`)
   @UseGuards(AuthGuard(), RoleGuard)
-  @Patch('/update/:id')
+  @Patch(':id')
   @UseInterceptors(FileInterceptor('image'))
   async update(
     @Param('id', new UUIDValidationPipe(4)) id: string,
@@ -63,7 +63,7 @@ export class BooksController {
 
   @Roles(`Admin`)
   @UseGuards(AuthGuard(), RoleGuard)
-  @Put('/published/:id')
+  @Put(':id')
   async updatePublishedStatus(
     @Param('id', new UUIDValidationPipe(4)) id: string,
     @Body() Dto: UpdatePublishedDto,
@@ -71,7 +71,7 @@ export class BooksController {
     return await this.booksService.published(id, Dto);
   }
 
-  @Get('/list')
+  @Get('/')
   findAll(@Query() query: BookQueryDto) {
     return this.booksService.findAll(query);
   }
@@ -83,7 +83,7 @@ export class BooksController {
 
   @Roles(`Admin`)
   @UseGuards(AuthGuard(), RoleGuard)
-  @Delete('delete/:id')
+  @Delete(':id')
   remove(@Param('id', new UUIDValidationPipe(4)) id: string): Promise<string> {
     return this.booksService.remove(id);
   }

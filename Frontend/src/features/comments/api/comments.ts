@@ -12,14 +12,14 @@ interface GetCommentsParams {
 export const createComment = (bookId: string, text: string) => {
   return retryAsync(() =>
     axiosInstance
-      .post("/comments/create-comment", { book_id: bookId, text })
+      .post("/comments", { book_id: bookId, text })
       .then((res) => res.data)
   );
 };
 
 export const getComments = (params?: GetCommentsParams) => {
   return retryAsync(() =>
-    axiosInstance.get("/comments/list", { params }).then((res) => res.data)
+    axiosInstance.get("/comments", { params }).then((res) => res.data)
   );
 };
 
@@ -32,13 +32,13 @@ export const getCommentById = (id: string) => {
 export const updateComment = (id: string, newText: string) => {
   return retryAsync(() =>
     axiosInstance
-      .patch(`/comments/update/${id}`, { text: newText })
+      .patch(`/comments/${id}`, { text: newText })
       .then((res) => res.data)
   );
 };
 
 export const deleteComment = (id: string) => {
   return retryAsync(() =>
-    axiosInstance.delete(`/comments/delete/${id}`).then((res) => res.data)
+    axiosInstance.delete(`/comments/${id}`).then((res) => res.data)
   );
 };

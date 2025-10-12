@@ -10,7 +10,7 @@ type BooksListResponse = {
 
 export async function getAllBooks(): Promise<BooksListResponse> {
     return retryAsync(() =>
-        axiosInstance.get<BooksListResponse>("/books/list").then((res) => res.data)
+        axiosInstance.get<BooksListResponse>("/books/").then((res) => res.data)
     );
 }
 
@@ -19,7 +19,7 @@ export async function getBooksInOneCategory(
 ): Promise<BooksListResponse> {
     return retryAsync(() =>
         axiosInstance
-            .get<BooksListResponse>("/books/list", {params: cleanParams})
+            .get<BooksListResponse>("/books/", {params: cleanParams})
             .then((res) => res.data)
     );
 }

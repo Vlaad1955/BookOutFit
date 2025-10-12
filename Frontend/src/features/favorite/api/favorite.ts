@@ -17,7 +17,7 @@ export const deleteLikeBook = (bookId: string) => {
 export const getLikedBooks = (params?: FetchBooksOptions): Promise<Book[]> => {
   return retryAsync(() =>
     axiosInstance
-      .get("/likes/list", { params })
+      .get("/likes", { params })
       .then((res) => res.data.entities)
   );
 };

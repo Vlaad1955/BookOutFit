@@ -114,6 +114,7 @@ const Header = () => {
                     <span>Без вихідних, з 9 до 20</span>
                 </div>
 
+                {isAuthenticated && (
                 <Button
                     className={styles.header_cart}
                     variant={ButtonVariant.TRANSPARENT}
@@ -129,6 +130,7 @@ const Header = () => {
                         </div>
                     )}
                 </Button>
+                )}
 
                 {isAuthenticated ? (
                     <>

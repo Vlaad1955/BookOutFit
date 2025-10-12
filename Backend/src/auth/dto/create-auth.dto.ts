@@ -116,7 +116,7 @@ export class ResetDto {
   @IsEmail()
   @ApiProperty({ required: true })
   @Transform(({ value }) => value.trim().toLowerCase())
-  @MaxLength(20, { message: 'Email must not exceed 20 characters' })
+  @MaxLength(200, { message: 'Email must not exceed 200 characters' })
   email: string;
 }
 

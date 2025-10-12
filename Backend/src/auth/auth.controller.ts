@@ -7,7 +7,8 @@ import {
   UnauthorizedException,
   Headers,
   UseGuards,
-  Patch, HttpCode,
+  Patch,
+  HttpCode,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import {

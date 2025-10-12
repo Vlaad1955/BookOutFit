@@ -5,7 +5,7 @@ import {passwordDto} from "@/features/password/types/password";
 export const userApi = {
   fetchCurrentUser: () => axiosInstance.get("/users/find"),
   updateUser: (id: string, payload: Partial<User>) =>
-    axiosInstance.patch(`/users/update/${id}`, payload),
-  deleteUser: (id: string) => axiosInstance.delete(`/users/delete/${id}`),
+    axiosInstance.patch(`/users/${id}`, payload),
+  deleteUser: (id: string) => axiosInstance.delete(`/users/${id}`),
   updatePassword: (dto: passwordDto) => axiosInstance.patch('/auth/newPassword', dto),
 };

@@ -36,7 +36,7 @@ export class LikesController {
   }
 
   @UseGuards(AuthGuard())
-  @Get('/list')
+  @Get('/')
   getLikedBooks(@User('id') userId: string, @Query() query: BookQueryDto) {
     return this.likesService.getLikedBooks(userId, query);
   }

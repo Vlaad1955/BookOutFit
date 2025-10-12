@@ -27,7 +27,7 @@ export class NewsController {
 
   @Roles(`Admin`)
   @UseGuards(AuthGuard(), RoleGuard)
-  @Post('/create')
+  @Post('/')
   @UseInterceptors(FileInterceptor('image'))
   async create(
     @Body() Dto: CreateNewsDto,
@@ -40,19 +40,19 @@ export class NewsController {
     return this.newsService.create(Dto);
   }
 
-  @Get('/list')
+  @Get('/')
   findAll(@Query() query: NewsQueryDto) {
     return this.newsService.findAll(query);
   }
 
-  @Get('find/id/:id')
+  @Get('find/:id')
   findOne(@Param('id', new UUIDValidationPipe(4)) id: string) {
     return this.newsService.findOne(id);
   }
 
   @Roles(`Admin`)
   @UseGuards(AuthGuard(), RoleGuard)
-  @Patch('update/:id')
+  @Patch(':id')
   update(
     @Param('id', new UUIDValidationPipe(4)) id: string,
     @Body() Dto: UpdateNewsDto,
@@ -62,7 +62,7 @@ export class NewsController {
 
   @Roles(`Admin`)
   @UseGuards(AuthGuard(), RoleGuard)
-  @Delete('delete/:id')
+  @Delete(':id')
   remove(@Param('id', new UUIDValidationPipe(4)) id: string) {
     return this.newsService.remove(id);
   }
