@@ -12,6 +12,11 @@ export class NewsQueryDto {
   @IsOptional()
   order = 'ASC';
 
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsString()
+  id?: string;
+
   @ApiProperty({ required: false, default: 1 })
   @IsOptional()
   @IsNumberString()

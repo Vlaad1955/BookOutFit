@@ -35,13 +35,6 @@ export class CommentsController {
     return this.commentsService.findAll(query);
   }
 
-  @Get('find/:id')
-  findOne(
-    @Param('id', new UUIDValidationPipe(4)) id: string,
-  ): Promise<Comment> {
-    return this.commentsService.findOne(id);
-  }
-
   @UseGuards(AuthGuard())
   @Patch(':id')
   async update(

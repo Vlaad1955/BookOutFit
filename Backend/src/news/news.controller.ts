@@ -45,11 +45,6 @@ export class NewsController {
     return this.newsService.findAll(query);
   }
 
-  @Get('find/:id')
-  findOne(@Param('id', new UUIDValidationPipe(4)) id: string) {
-    return this.newsService.findOne(id);
-  }
-
   @Roles(`Admin`)
   @UseGuards(AuthGuard(), RoleGuard)
   @Patch(':id')

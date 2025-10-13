@@ -23,12 +23,6 @@ export const getComments = (params?: GetCommentsParams) => {
   );
 };
 
-export const getCommentById = (id: string) => {
-  return retryAsync(() =>
-    axiosInstance.get(`/comments/find/${id}`).then((res) => res.data)
-  );
-};
-
 export const updateComment = (id: string, newText: string) => {
   return retryAsync(() =>
     axiosInstance

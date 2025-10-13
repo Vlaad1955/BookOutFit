@@ -9,8 +9,11 @@ export async function getAllNews(queryParams: unknown) {
 }
 
 export async function getOneNews(id: string) {
-  const response = await axiosInstance.get(`/news/find/${id}`);
-  return response.data;
+  const response = await axiosInstance.get("/news", {
+    params: { id },
+  });
+
+  return response.data.entities[0];
 }
 
 export async function createNews(newsData: UpdateNewsDto, imageFile: File) {

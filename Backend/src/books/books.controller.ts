@@ -76,11 +76,6 @@ export class BooksController {
     return this.booksService.findAll(query);
   }
 
-  @Get('find/:id')
-  findOne(@Param('id', new UUIDValidationPipe(4)) id: string): Promise<Book> {
-    return this.booksService.findOne(id);
-  }
-
   @Roles(`Admin`)
   @UseGuards(AuthGuard(), RoleGuard)
   @Delete(':id')

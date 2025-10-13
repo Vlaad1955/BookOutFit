@@ -34,10 +34,11 @@ export async function getMaxBookPrice(
     );
 }
 
-export async function getOneBook(id: string): Promise<Book> {
-    return retryAsync(() =>
-        axiosInstance.get<Book>(`/books/find/${id}`).then((res) => res.data)
-    );
-
-
+export async function getOneBook(id: string): Promise<Book | null> {
+    const response = await axiosInstance.get("/books/", { params: { id } });
+    const book = response.data.entities?.[0];
+    if (!book) {
+        throw new Error("Book not found");
+    }
+    return book;
 }

@@ -26,11 +26,6 @@ export class UsersController {
     return this.usersService.findAll(query);
   }
 
-  @Get('find/:id')
-  findOne(@Param('id', new UUIDValidationPipe(4)) id: string) {
-    return this.usersService.findOne(id);
-  }
-
   @UseGuards(AuthGuard())
   @Get('find')
   findOneToToken(@User('id') userId: string) {

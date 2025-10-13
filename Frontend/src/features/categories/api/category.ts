@@ -26,12 +26,6 @@ export async function getCategoryList(queryParams: FetchCategoriesOptions) {
   );
 }
 
-export async function getCategoryById(id: string) {
-  return retryAsync(() =>
-    axiosInstance.get(`/category/find/${id}`).then((res) => res.data)
-  );
-}
-
 export async function updateCategory(id: string, dto: UpdateCategoryDto) {
   return retryAsync(() =>
     axiosInstance.patch(`/category/${id}`, dto).then((res) => res.data)

@@ -58,6 +58,10 @@ export class NewsService {
 
     const qd = this.newsRepository.createQueryBuilder('news');
 
+    if (query.id) {
+      qd.andWhere('news.id = :id', { id: query.id });
+    }
+
     if (query.title) {
       qd.andWhere('news.title ILIKE :title', { title: `%${query.title}%` });
     }

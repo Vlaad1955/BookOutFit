@@ -17,9 +17,13 @@ export async function getAllBooks(queryParams: Record<string, unknown>) {
     return response.data;
 }
 
-export async function getOneBook(id: string): Promise<Book> {
-    const response = await axiosInstance.get(`/books/find/${id}`);
-    return response.data;
+export async function getOneBook(id: string): Promise<Book | null> {
+    const response = await axiosInstance.get("/books/", { params: { id } });
+    const book = response.data.entities?.[0];
+    if (!book) {
+        throw new Error("Book not found");
+    }
+    return book;
 }
 
 export async function createBook(

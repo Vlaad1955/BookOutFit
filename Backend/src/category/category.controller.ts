@@ -44,11 +44,6 @@ export class CategoryController {
     return this.categoryService.findMainCategories();
   }
 
-  @Get('find/:id')
-  findOne(@Param('id', new UUIDValidationPipe(4)) id: string) {
-    return this.categoryService.findOne(id);
-  }
-
   @Roles(`Admin`)
   @UseGuards(AuthGuard(), RoleGuard)
   @Patch(':id')
