@@ -21,6 +21,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
     return {
       type: 'postgres',
       url: postgresUrl,
+      ssl: { rejectUnauthorized: false },
       entities: [
         User,
         Category,

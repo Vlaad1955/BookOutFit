@@ -1,3 +1,4 @@
+
 import NewsItem from "@/features/news/components/NewsItem";
 import { getOneNews } from "@/admin/news/api/news";
 

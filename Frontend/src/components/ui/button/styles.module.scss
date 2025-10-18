@@ -1,31 +1,25 @@
-:root {
-  --border: 2px;
-  --transition-time: 0.3s;
-  --color-delete-hover: #f95656;
-}
-
 .button {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 6px;
   box-sizing: border-box;
-  font-family: var(--font-family);
-  letter-spacing: var(--letter-spacing-button-text);
+  font-family: "Rubik", sans-serif;
+  letter-spacing: 0.5px;
   border: none;
-  border-radius: var(--b-5);
+  border-radius: 1.25rem; /* --b-5 */
   cursor: pointer;
 }
 
 .medium {
-  padding: var(--p-2) var(--p-4);
-  font-weight: var(--font-weight-500);
-  font-size: var(--font-size-1-button-text);
+  padding: 0.5rem 1.5rem; /* --p-2, --p-4 */
+  font-weight: 500; /* --font-weight-500 */
+  font-size: 1.125rem; /* --font-size-1-button-text */
 }
 
 .small {
-  padding: var(--p-1) var(--p-2);
-  font-weight: var(--font-weight-400);
+  padding: 0.25rem 0.5rem; /* --p-1, --p-2 */
+  font-weight: 400; /* --font-weight-400 */
   font-size: 16px;
 }
 
@@ -36,94 +30,89 @@
 }
 
 .primary {
-  color: var(--color-white-100);
-  background: var(--color-purple-500);
+  color: #ffffff; /* --color-white-100 */
+  background: #7a5fcc; /* --color-purple-500 */
 }
 
 .primary:hover {
-  background: var(--color-lavender-300);
-  transition: all var(--transition-time);
+  background: #512ac7; /* --color-lavender-300 */
+  transition: all 0.3s; /* приблизно замість var(--transition-time) */
 }
 
 .primaryDisabled {
-  color: var(--color-white-100);
-  background: var(--color-disable);
+  color: #ffffff;
+  background: #e5e7ed; /* --color-disable */
   cursor: auto;
 }
 
 .primaryMedium {
-  padding: calc(var(--p-2) + var(--border)) calc(var(--p-4) + var(--border));
+  padding: calc(0.5rem + 1px) calc(1.5rem + 1px);
 }
 
 .primarySmall {
-  padding: calc(var(--p-1) + var(--border)) calc(var(--p-3) + var(--border));
+  padding: calc(0.25rem + 1px) calc(1rem + 1px);
 }
 
 .secondary {
-  color: #01cacc;
-  background: linear-gradient(var(--color-white-100), var(--color-white-100))
-      padding-box,
-    var(--gradient-6);
-  border: var(--border) solid transparent;
+  color: #01cacc; /* --color-green */
+  background: linear-gradient(#ffffff, #ffffff) padding-box,
+  linear-gradient(95.77deg, #00d7bd -14.06%, #03bfd9 101.51%); /* --gradient-6 */
+  border: 1px solid transparent;
 }
 
 .secondary:hover {
   color: #0be9ee;
-  background: linear-gradient(var(--color-white-100), var(--color-white-100))
-      padding-box,
-    var(--gradient-5);
-  border: var(--border) solid transparent;
-  transition: all var(--transition-time);
+  background: linear-gradient(#ffffff, #ffffff) padding-box,
+  linear-gradient(95.77deg, #09f2d6 -14.06%, #09e1ff 101.51%); /* --gradient-5 */
+  border: 1px solid transparent;
+  transition: all 0.3s;
 }
 
 .secondaryDisabled {
-  color: var(--color-disable);
-  background: linear-gradient(var(--color-white-100), var(--color-white-100))
-      padding-box,
-    var(--color-disable);
-  border: var(--border) solid transparent;
+  color: #e5e7ed; /* --color-disable */
+  background: linear-gradient(#ffffff, #ffffff) padding-box,
+  #e5e7ed;
+  border: 1px solid transparent;
   cursor: auto;
 }
 
 .plain {
-  color: var(--color-blue-500);
+  color: #3242df; /* --color-blue-500 */
   background: none;
 }
 
 .plain:hover {
-  color: var(--color-blue-600);
-  transition: all var(--transition-time);
+  color: #163676; /* --color-blue-600 */
+  transition: all 0.3s;
 }
 
 .plainDisabled {
-  color: var(--color-disable);
+  color: #e5e7ed; /* --color-disable */
   background: none;
   cursor: auto;
 }
 
 .round {
-  color: var(--color-white-100);
-  background-color: var(--color-blue-500);
+  color: #ffffff; /* --color-white-100 */
+  background-color: #3242df; /* --color-blue-500 */
 }
 
 .transparent {
-  color: var(--color-white-transparent);
+  color: #ffffff00; /* --color-white-transparent */
   background-color: transparent;
 }
 
 .delete {
-  color: var(--color-warning);
-  background: linear-gradient(var(--color-white-100), var(--color-white-100))
-      padding-box,
-    var(--color-warning);
-  border: var(--border) solid transparent;
+  color: #dc2430; /* --color-warning */
+  background: linear-gradient(#ffffff, #ffffff) padding-box,
+  #dc2430;
+  border: 1px solid transparent;
 }
 
 .delete:hover {
-  color: var(--color-red-300);
-  background: linear-gradient(var(--color-white-100), var(--color-white-100))
-      padding-box,
-    var(--color-red-300);
-  border: var(--border) solid transparent;
-  transition: all var(--transition-time);
+  color: #f14c52; /* --color-red-300 */
+  background: linear-gradient(#ffffff, #ffffff) padding-box,
+  #f14c52;
+  border: 1px solid transparent;
+  transition: all 0.3s;
 }

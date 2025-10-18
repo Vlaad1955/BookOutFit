@@ -1,3 +1,4 @@
+
 import UpdatePasswordForm from "@/features/password/components/UpdatePasswordForm";
 import ProtectedRoute from "@/shared/protected-route/protectedRoute";
 

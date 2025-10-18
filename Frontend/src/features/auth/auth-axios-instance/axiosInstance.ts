@@ -4,12 +4,20 @@ import { tokenStorage } from "@/shared/token/UseTokenStore";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
+export function getApiBaseUrl() {
+    if (typeof window === "undefined") {
+        return API_URL;
+    } else {
+        return "/api";
+    }
+}
+
 if (!API_URL) {
   throw new Error("API URL is not defined in environment variables");
 }
 
 const axiosInstance = axios.create({
-  baseURL: API_URL,
+  baseURL: getApiBaseUrl(),
   withCredentials: true,
 });
 

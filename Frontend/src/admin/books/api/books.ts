@@ -69,18 +69,20 @@ export async function updateBook(
     if (imageFile) {
         formData.append("image", imageFile);
     }
-    formData.append("title", bookData.title);
-    formData.append("price", bookData.price.toString());
-    formData.append("gift", String(bookData.gift));
-    formData.append("cover", bookData.cover);
 
-    bookData.categories.forEach((categoryId) => {
-        formData.append("categories", categoryId);
+    formData.append("title", bookData.title ?? "");
+    formData.append("price", bookData.price?.toString() ?? "0");
+    formData.append("gift", String(bookData.gift ?? false));
+    formData.append("cover", bookData.cover ?? "");
+
+    bookData.categories?.forEach((categoryId) => {
+        formData.append("categories", categoryId ?? "");
     });
 
     if (bookData.description) {
         formData.append("description", bookData.description);
     }
+
     if (bookData.author) {
         formData.append("author", bookData.author);
     }

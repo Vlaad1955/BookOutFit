@@ -14,7 +14,10 @@ async function bootstrap() {
 
   app.use(cookieParser());
   app.enableCors({
-    origin: process.env.CLIENT_ORIGIN ?? 'http://localhost:3000',
+    origin: [
+      'http://localhost:3000', // для фронтенду на твоєму хості
+      process.env.CLIENT_ORIGIN,  // для фронтенду всередині Docker
+    ],
     credentials: true,
   });
 

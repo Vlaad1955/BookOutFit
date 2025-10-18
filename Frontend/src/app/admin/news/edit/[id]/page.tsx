@@ -1,15 +1,13 @@
+
 import EditNewsForm from "@/admin/news/components/edit-form/EditNewsForm";
-import {getOneNews} from "@/admin/news/api/news";
+import { getOneNews } from "@/admin/news/api/news";
 
 type Params = { id: string };
 
-export default async function EditNewsPage({params}: { params: Params }) {
-    const {id} = await params;
-    const news = await getOneNews(id);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default async function EditNewsPage({ params }: any) {
+    const typedParams = params as Params;
+    const news = await getOneNews(typedParams.id);
 
-    return (
-        <div>
-            <EditNewsForm news={news}/>
-        </div>
-    );
+    return <EditNewsForm news={news} />;
 }

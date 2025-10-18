@@ -7,7 +7,7 @@ import Footer from "@/components/footer/Footer";
 import TokenInit from "@/shared/token/tokenInit";
 import { BasketInit } from "@/features/basket/components/BasketInit";
 import { FavoriteInit } from "@/features/favorite/components/FavoriteInit";
-import "./globals.css";
+import "./globals.scss";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

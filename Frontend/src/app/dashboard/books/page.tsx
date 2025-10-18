@@ -1,3 +1,4 @@
+
 import BookWrapper from "@/features/books/components/BookWrapper";
 import { getBooksInOneCategory, getMaxBookPrice } from "@/features/books/api/books";
 import { Book } from "@/features/books/types/book";
@@ -9,8 +10,9 @@ import {
     getParam,
 } from "@/shared/hooks/get-param/getParam.hook";
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 type BookProps = {
-    searchParams: { [key: string]: string | string[] | undefined };
+    searchParams: any;
 };
 
 function buildFilters(searchParams: BookProps["searchParams"]) {

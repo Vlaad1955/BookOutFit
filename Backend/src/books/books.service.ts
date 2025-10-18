@@ -105,9 +105,6 @@ export class BooksService {
       .createQueryBuilder('book')
       .leftJoinAndSelect('book.categories', 'category')
       .leftJoinAndSelect('book.comments', 'comment')
-      .where('book.published = :published', {
-        published: query.published ?? true,
-      });
 
     if (query.price) {
       qb.andWhere('book.price BETWEEN :min AND :max', {
@@ -145,7 +142,11 @@ export class BooksService {
     }
 
     if (query.id) {
-      qb.andWhere('book.id = :id', { id: query.id });
+      qb.where('book.id = :id', { id: query.id });
+    } else {
+      qb.where('book.published = :published', {
+        published: query.published ?? true,
+      });
     }
 
     if (query.categories) {

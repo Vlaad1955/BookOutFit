@@ -2,7 +2,9 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  env: { SERVER_URL: process.env.SERVER_URL },
+  env: {
+    SERVER_URL: process.env.SERVER_URL,
+  },
   images: {
     disableStaticImages: true,
     remotePatterns: [
@@ -22,6 +24,15 @@ const nextConfig: NextConfig = {
         pathname: "/storage/v1/object/public/user-covers/**",
       },
     ],
+  },
+
+  async rewrites() {
+    return [
+      {
+        source: "/api/:path*",
+        destination: "http://backend:4000/:path*",
+      },
+    ];
   },
 };
 

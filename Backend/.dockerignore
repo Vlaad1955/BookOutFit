@@ -1,0 +1,14 @@
+# Node modules та логи
+node_modules
+npm-debug.log
+yarn-error.log
+pnpm-lock.yaml
+
+# Build каталоги
+dist
+build
+
+# Локальні налаштування
+.env
+.idea/
+.DS_Store

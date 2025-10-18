@@ -23,7 +23,10 @@ export default function CategoryList() {
 
   useEffect(() => {
     fetchCategories({ page: 1, limit: 100 })
-      .then((data) => setCategories(data.entities))
+        .then((data) => {
+          console.log("Categories data:", data);
+          setCategories(data.entities);
+        })
       .catch((err) => {
         setError(err.message);
         throw error;

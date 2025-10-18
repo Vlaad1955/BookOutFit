@@ -1,0 +1,15 @@
+# Node modules та логи
+node_modules
+npm-debug.log
+yarn-error.log
+pnpm-lock.yaml
+
+# Next.js build
+.next
+dist
+out
+
+# Локальні налаштування
+.env
+.idea/
+.DS_Store
