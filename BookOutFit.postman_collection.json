@@ -1,0 +1,2301 @@
+{
+	"info": {
+		"_postman_id": "c3e0de9b-29d4-4379-8b1b-fc7207d5bfdc",
+		"name": "BookOutFit",
+		"description": "# 📄 Get started here\n\nThis template contains a boilerplate for documentation that you can quickly customize and reuse.\n\n## 🔖 How to use this template\n\n- Replace the content given brackets (()) with your API's details.\n- Tips are formatted in `codespan` - feel free to read and remove them.\n    \n\n---\n\n`Start with a brief overview of what your API offers.`\n\nThe ((product name)) provides many API products, tools, and resources that enable you to ((add product value here)).\n\n`You can also list the APIs you offer, link to the relevant pages, or do both in this section.`\n\n## **Getting started guide**\n\n`List the steps or points required to start using your APIs. Make sure to cover everything required to reach success with your API as quickly as possible.`\n\nTo start using the ((add APIs here)), you need to -\n\n`The points given below are from The Postman API's documentation. You can reference it to write your own getting started guide.`\n\n- You must use a valid API Key to send requests to the API endpoints. You can get your API key from Postman's [integrations dashboard](https://go.postman.co/settings/me/api-keys).\n- The API has [rate and usage limits](https://learning.postman.com/docs/developer/postman-api/postman-api-rate-limits/).\n- The API only responds to HTTPS-secured communications. Any requests sent via HTTP return an HTTP 301 redirect to the corresponding HTTPS resources.\n- The API returns request responses in JSON format. When an API request returns an error, it is sent in the JSON response as an error key.\n    \n\n## Authentication\n\n`Add details on the authorization keys/tokens required, steps that cover how to get them, and the relevant error codes.`\n\nThe ((product name)) API uses ((add your API's authorization type)) for authentication.\n\n`The details given below are from the Postman API's documentation. You can reference it to write your own authentication section.`\n\nPostman uses API keys for authentication. You can generate a Postman API key in the [API keys](https://postman.postman.co/settings/me/api-keys) section of your Postman account settings.\n\nYou must include an API key in each request to the Postman API with the X-Api-Key request header.\n\n### Authentication error response\n\nIf an API key is missing, malformed, or invalid, you will receive an HTTP 401 Unauthorized response code.\n\n## Rate and usage limits\n\n`Use this section to cover your APIs' terms of use. Include API limits, constraints, and relevant error codes, so consumers understand the permitted API usage and practices.`\n\n`The example given below is from The Postman API's documentation. Use it as a reference to write your APIs' terms of use.`\n\nAPI access rate limits apply at a per-API key basis in unit time. The limit is 300 requests per minute. Also, depending on your plan, you may have usage limits. If you exceed either limit, your request will return an HTTP 429 Too Many Requests status code.\n\nEach API response returns the following set of headers to help you identify your use status:\n\n| Header | Description |\n| --- | --- |\n| `X-RateLimit-Limit` | The maximum number of requests that the consumer is permitted to make per minute. |\n| `X-RateLimit-Remaining` | The number of requests remaining in the current rate limit window. |\n| `X-RateLimit-Reset` | The time at which the current rate limit window resets in UTC epoch seconds. |\n\n### 503 response\n\nAn HTTP `503` response from our servers indicates there is an unexpected spike in API access traffic. The server is usually operational within the next five minutes. If the outage persists or you receive any other form of an HTTP `5XX` error, [contact support](https://support.postman.com/hc/en-us/requests/new/).\n\n### **Need some help?**\n\n`Add links that customers can refer to whenever they need help.`\n\nIn case you have questions, go through our tutorials ((link to your video or help documentation here)). Or visit our FAQ page ((link to the relevant page)).\n\nOr you can check out our community forum, there’s a good chance our community has an answer for you. Visit our developer forum ((link to developer forum)) to review topics, ask questions, and learn from others.\n\n`You can also document or add links to libraries, code examples, and other resources needed to make a request.`",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40473372"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "Register User with File",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const domain = \"ex.com\";",
+									"const prefix = \"u\" + Math.floor(Math.random() * 10000);",
+									"const email = `${prefix}@${domain}`;",
+									"pm.environment.set(\"email\", email);",
+									"pm.environment.set(\"password\", \"Test1234!\");",
+									"pm.environment.set(\"firstName\", \"Test\");",
+									"pm.environment.set(\"lastName\", \"User\");",
+									"pm.environment.set(\"age\", \"30\");",
+									"pm.environment.set(\"phone\", \"0981234567\");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Login successful\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.environment.set(\"accessToken\", jsonData.accessToken);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "{{email}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text"
+								},
+								{
+									"key": "firstName",
+									"value": "{{firstName}}",
+									"type": "text"
+								},
+								{
+									"key": "lastName",
+									"value": "{{lastName}}",
+									"type": "text"
+								},
+								{
+									"key": "age",
+									"value": "{{age}}",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "{{phone}}",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"value": "",
+									"type": "file"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/registration",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"registration"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/logout",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Login successful\", function () {",
+									"    pm.response.to.have.status(201);",
+									"    var jsonData = pm.response.json();",
+									"    pm.environment.set(\"accessToken\", jsonData.accessToken);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Password",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"function generateSecurePassword(length = 12) {\r",
+									"    const uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';\r",
+									"    const lowercase = 'abcdefghijklmnopqrstuvwxyz';\r",
+									"    const digits = '0123456789';\r",
+									"    const special = '!@#$%^&*()_+-=[]{};:\\'\",.<>?/|\\\\';\r",
+									"\r",
+									"    const mandatory = [\r",
+									"        uppercase[Math.floor(Math.random() * uppercase.length)],\r",
+									"        digits[Math.floor(Math.random() * digits.length)],\r",
+									"        special[Math.floor(Math.random() * special.length)]\r",
+									"    ];\r",
+									"\r",
+									"    const all = uppercase + lowercase + digits + special;\r",
+									"    for (let i = mandatory.length; i < length; i++) {\r",
+									"        mandatory.push(all[Math.floor(Math.random() * all.length)]);\r",
+									"    }\r",
+									"    const shuffled = mandatory.sort(() => 0.5 - Math.random()).join('');\r",
+									"\r",
+									"    return shuffled;\r",
+									"}\r",
+									"\r",
+									"const newPassword = generateSecurePassword(12);\r",
+									"pm.environment.set(\"newPassword\", newPassword);\r",
+									"console.log(\"Generated newPassword:\", newPassword);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {\r",
+									"    const newPassword = pm.variables.get(\"newPassword\");\r",
+									"    pm.environment.set(\"password\", newPassword);\r",
+									"    console.log(\"Password was successfully updated.\");\r",
+									"} else {\r",
+									"    console.warn(\"Password not updated — response code not 200.\");\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"lostPassword\":\"{{password}}\",\r\n    \"newPassword\":\"{{newPassword}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/newPassword",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"newPassword"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \" email\": \"{{email}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/resetPassword",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"resetPassword"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Login successful\", function () {",
+									"    pm.response.to.have.status(201);",
+									"    var jsonData = pm.response.json();",
+									"    pm.environment.set(\"accessToken\", jsonData.accessToken);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/refresh",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "The `/me` endpoints let you manage information about the authenticated user."
+		},
+		{
+			"name": "basket",
+			"item": [
+				{
+					"name": "Add",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"bookId\", \"032953c3-c21c-4bf9-bf01-1fe2b65f4bc9\");"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"bookId\":\"{{bookId}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/basket",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"basket"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/basket",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"basket"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/basket/remove/:bookId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"basket",
+								"remove",
+								":bookId"
+							],
+							"variable": [
+								{
+									"key": "bookId",
+									"value": "{{bookId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Clear",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/basket",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"basket"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "books",
+			"item": [
+				{
+					"name": "Сreate book",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"",
+									"function randomString(length = 8) {",
+									"    const chars = 'abcdefghijklmnopqrstuvwxyz';",
+									"    return Array.from({ length }, () => chars[Math.floor(Math.random() * chars.length)]).join('');",
+									"}",
+									"",
+									"function randomPrice(min = 10, max = 1000) {",
+									"    return Math.floor(Math.random() * (max - min + 1)) + min;",
+									"}",
+									"",
+									"function randomBoolean() {",
+									"    return Math.random() < 0.5;",
+									"}",
+									"",
+									"function randomCover() {",
+									"    const covers = ['soft', 'firm'];",
+									"    return covers[Math.floor(Math.random() * covers.length)];",
+									"}",
+									"",
+									"",
+									"function optionalValue(value) {",
+									"    return Math.random() < 0.5 ? value : null;",
+									"}",
+									"",
+									"",
+									"pm.environment.set(\"title\", `Book ${randomString(5)}`);",
+									"pm.environment.set(\"price\", randomPrice());",
+									"pm.environment.set(\"description\", optionalValue(`Description ${randomString(15)}`));",
+									"pm.environment.set(\"author\", optionalValue(`Author ${randomString(6)}`));",
+									"pm.environment.set(\"image\", optionalValue(`https://example.com/${randomString(8)}.jpg`));",
+									"pm.environment.set(\"gift\", randomBoolean());",
+									"pm.environment.set(\"cover\", randomCover());",
+									"pm.environment.set(\"categories1\", \"2f957407-795d-472f-82ee-ca3b4c930da3\");",
+									"pm.environment.set(\"categories2\", \"8667afc9-baba-48f8-a52b-466eb445e5e7\");",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "{{title}}",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "{{price}}",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "{{description}}",
+									"type": "text"
+								},
+								{
+									"key": "author",
+									"value": "{{author}}",
+									"type": "text"
+								},
+								{
+									"key": "gift",
+									"value": "{{gift}}",
+									"type": "text"
+								},
+								{
+									"key": "cover",
+									"value": "{{cover}}",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"value": "",
+									"type": "file"
+								},
+								{
+									"key": "categories",
+									"value": "{{categories1}}",
+									"type": "text"
+								},
+								{
+									"key": "categories",
+									"value": "{{categories2}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/books",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/books/?page=1&limit=4&published=false&price={{price}}&author={{author}}&cover={{cover}}&gift={{gift}}&categories={{categories1}}&title={{titel}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"books",
+								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "4"
+								},
+								{
+									"key": "published",
+									"value": "false"
+								},
+								{
+									"key": "price",
+									"value": "{{price}}"
+								},
+								{
+									"key": "author",
+									"value": "{{author}}"
+								},
+								{
+									"key": "cover",
+									"value": "{{cover}}"
+								},
+								{
+									"key": "gift",
+									"value": "{{gift}}"
+								},
+								{
+									"key": "categories",
+									"value": "{{categories1}}"
+								},
+								{
+									"key": "title",
+									"value": "{{titel}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List search",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"\r",
+									"if (response.entities && response.entities.length > 0) {\r",
+									"  const bookId = response.entities[0].id;\r",
+									"  pm.environment.set(\"bookId\", bookId);\r",
+									"  console.log(\"Збережено bookId:\", bookId);\r",
+									"} else {\r",
+									"  console.warn(\"Книги не знайдені\");\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/books?search={{title}}&published=false",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"books"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "{{title}}"
+								},
+								{
+									"key": "published",
+									"value": "false"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"function randomString(length = 8) {\r",
+									"  const chars = 'abcdefghijklmnopqrstuvwxyz';\r",
+									"  return Array.from({ length }, () => chars[Math.floor(Math.random() * chars.length)]).join('');\r",
+									"}\r",
+									"\r",
+									"function randomPrice(min = 10, max = 1000) {\r",
+									"  return Math.floor(Math.random() * (max - min + 1)) + min;\r",
+									"}\r",
+									"\r",
+									"function randomBoolean() {\r",
+									"  return Math.random() < 0.5;\r",
+									"}\r",
+									"\r",
+									"function randomCover() {\r",
+									"  const covers = ['soft', 'firm'];\r",
+									"  return covers[Math.floor(Math.random() * covers.length)];\r",
+									"}\r",
+									"\r",
+									"function optionalValue(value) {\r",
+									"  return Math.random() < 0.5 ? value : null;\r",
+									"}\r",
+									"\r",
+									"const newtitle = `Book ${randomString(5)}`;\r",
+									"const newprice = randomPrice();\r",
+									"const newdescription = optionalValue(`Description ${randomString(15)}`);\r",
+									"const newauthor = optionalValue(`Author ${randomString(6)}`);\r",
+									"const newgift = randomBoolean();\r",
+									"const newcover = randomCover();\r",
+									"const categories = [\r",
+									"  \"2f957407-795d-472f-82ee-ca3b4c930da3\",\r",
+									"  \"e2dc18d3-7c4a-42e6-aedd-1a3d4630f7a3\"\r",
+									"];\r",
+									"\r",
+									"const body = {\r",
+									"  title: newtitle,\r",
+									"  price: newprice,\r",
+									"  gift: newgift,\r",
+									"  cover: newcover,\r",
+									"  categories: categories,\r",
+									"};\r",
+									"\r",
+									"if (newdescription !== null) body.description = newdescription;\r",
+									"if (newauthor !== null) body.author = newauthor;\r",
+									"\r",
+									"pm.environment.set(\"requestBody\", JSON.stringify(body));\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{requestBody}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/books/:bookId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"books",
+								":bookId"
+							],
+							"variable": [
+								{
+									"key": "bookId",
+									"value": "{{bookId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Published",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"published\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/books/:bookId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"books",
+								":bookId"
+							],
+							"variable": [
+								{
+									"key": "bookId",
+									"value": "{{bookId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Max price",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/books/max-price",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"books",
+								"max-price"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Authors",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/books/authors?page=1&limit=3&categories={{categories1}}&gift=false&title={{title}}&cover={{cover}}&price={{price}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"books",
+								"authors"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "3"
+								},
+								{
+									"key": "categories",
+									"value": "{{categories1}}"
+								},
+								{
+									"key": "gift",
+									"value": "false"
+								},
+								{
+									"key": "title",
+									"value": "{{title}}"
+								},
+								{
+									"key": "cover",
+									"value": "{{cover}}"
+								},
+								{
+									"key": "price",
+									"value": "{{price}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/books/:bookId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"books",
+								":bookId"
+							],
+							"variable": [
+								{
+									"key": "bookId",
+									"value": "{{bookId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "category",
+			"item": [
+				{
+					"name": "Create",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"function randomString(length = 8) {\r",
+									"    const chars = 'abcdefghijklmnopqrstuvwxyz';\r",
+									"    return Array.from({ length }, () => chars[Math.floor(Math.random() * chars.length)]).join('');\r",
+									"}\r",
+									"\r",
+									"pm.environment.set(\"name\", `Categories ${randomString(5)}`);"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Create category successful\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.environment.set(\"CreateCategoriesID\", jsonData.id);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"{{name}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/category",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"Newname\", `Test`);"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 201) {\r",
+									"    pm.environment.set(\"name\", pm.environment.get(\"Newname\"));\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"{{Newname}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/category/:CreateCategoriesID",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"category",
+								":CreateCategoriesID"
+							],
+							"variable": [
+								{
+									"key": "CreateCategoriesID",
+									"value": "{{CreateCategoriesID}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/category?page=1&limit=2&parentId=2f957407-795d-472f-82ee-ca3b4c930da3&id=1cdaa60d-3168-440d-adfd-008eb7b6a9fb&name=Бойовики",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"category"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "2"
+								},
+								{
+									"key": "parentId",
+									"value": "2f957407-795d-472f-82ee-ca3b4c930da3"
+								},
+								{
+									"key": "id",
+									"value": "1cdaa60d-3168-440d-adfd-008eb7b6a9fb"
+								},
+								{
+									"key": "name",
+									"value": "Бойовики"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Main list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/category/mainCategories",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"category",
+								"mainCategories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/category/:CreateCategoriesID",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"category",
+								":CreateCategoriesID"
+							],
+							"variable": [
+								{
+									"key": "CreateCategoriesID",
+									"value": "{{CreateCategoriesID}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "comments",
+			"item": [
+				{
+					"name": "Create",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"function randomString(length = 20) {\r",
+									"    const chars = 'abcdefghijklmnopqrstuvwxyz';\r",
+									"    return Array.from({ length }, () => chars[Math.floor(Math.random() * chars.length)]).join('');\r",
+									"}\r",
+									"\r",
+									"pm.environment.set(\"textComment\", `${randomString(20)}`);"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"\r",
+									"if (response && response.id) {\r",
+									"  pm.environment.set(\"CommentId\", response.id);\r",
+									"  console.log(\"Збережено CommentId:\", response.id);\r",
+									"} else {\r",
+									"  console.warn(\"Коментар не знайдено\");\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"book_id\":\"{{bookId}}\",\r\n    \"text\":\"{{textComment}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/comments",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"function randomString(length = 20) {\r",
+									"    const chars = 'abcdefghijklmnopqrstuvwxyz';\r",
+									"    return Array.from({ length }, () => chars[Math.floor(Math.random() * chars.length)]).join('');\r",
+									"}\r",
+									"\r",
+									"pm.environment.set(\"NewtextComment\", `${randomString(20)}`);"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"text\":\"{{NewtextComment}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/comments/:CommentId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"comments",
+								":CommentId"
+							],
+							"variable": [
+								{
+									"key": "CommentId",
+									"value": "{{CommentId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/comments?page=1&limit=3&book_id={{bookId}}&user_id={{UserId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"comments"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "3"
+								},
+								{
+									"key": "book_id",
+									"value": "{{bookId}}"
+								},
+								{
+									"key": "user_id",
+									"value": "{{UserId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/comments/:CommentId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"comments",
+								":CommentId"
+							],
+							"variable": [
+								{
+									"key": "CommentId",
+									"value": "{{CommentId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "likes",
+			"item": [
+				{
+					"name": "Likes",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/likes/:bookId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"likes",
+								":bookId"
+							],
+							"variable": [
+								{
+									"key": "bookId",
+									"value": "{{bookId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Count Likes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/likes/count/:bookId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"likes",
+								"count",
+								":bookId"
+							],
+							"variable": [
+								{
+									"key": "bookId",
+									"value": "{{bookId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQxY2JmYzcwLThhYjktNDU3NS04ZTgyLTBmN2U2YTI0NmMwNSIsImVtYWlsIjoid3lsZjEzMTJAZ21haWwuY29tIiwiaWF0IjoxNzYwMjgyMDcwLCJleHAiOjE3NjAyODI5NzB9.30B35nxe9ZpLOlIqNaZEki4KQEHpf3lwhYqsh2ZzkiA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/likes?limit=3&page=1&published=true&author=Джордж Орвелл&cover=firm&title=1984&id=af3498b1-58db-48e0-9f3e-1542f22bfc43&gift=true&categories=47f6fd77-4357-49be-9b72-2ff852d3f5f0&noLimit=true",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"likes"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "3"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "published",
+									"value": "true"
+								},
+								{
+									"key": "author",
+									"value": "Джордж Орвелл"
+								},
+								{
+									"key": "cover",
+									"value": "firm"
+								},
+								{
+									"key": "title",
+									"value": "1984"
+								},
+								{
+									"key": "id",
+									"value": "af3498b1-58db-48e0-9f3e-1542f22bfc43"
+								},
+								{
+									"key": "gift",
+									"value": "true"
+								},
+								{
+									"key": "categories",
+									"value": "47f6fd77-4357-49be-9b72-2ff852d3f5f0"
+								},
+								{
+									"key": "noLimit",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Likes",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/likes/:bookId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"likes",
+								":bookId"
+							],
+							"variable": [
+								{
+									"key": "bookId",
+									"value": "{{bookId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "news",
+			"item": [
+				{
+					"name": "Create",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const categories = ['general', 'promotion', 'event'];\r",
+									"\r",
+									"const randomCategory = categories[Math.floor(Math.random() * categories.length)];\r",
+									"\r",
+									"pm.environment.set(\"Newscategory\", randomCategory);"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "{{title}}",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "{{textComment}}",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "{{Newscategory}}",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"value": "",
+									"type": "file"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/news",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"news"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List search",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"\r",
+									"if (response.entities && response.entities.length > 0) {\r",
+									"  const bookId = response.entities[0].id;\r",
+									"  pm.environment.set(\"NewsId\", bookId);\r",
+									"} else {\r",
+									"  console.warn(\"Книги не знайдені\");\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/news?title={{title}}&order=ASC&page=1&limit=4&category={{Newscategory}}&id={{id}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"news"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "{{title}}"
+								},
+								{
+									"key": "order",
+									"value": "ASC"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "4"
+								},
+								{
+									"key": "category",
+									"value": "{{Newscategory}}"
+								},
+								{
+									"key": "id",
+									"value": "{{id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\":\"{{NewtextComment}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/news/:NewsId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"news",
+								":NewsId"
+							],
+							"variable": [
+								{
+									"key": "NewsId",
+									"value": "{{NewsId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/news/:NewsId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"news",
+								":NewsId"
+							],
+							"variable": [
+								{
+									"key": "NewsId",
+									"value": "{{NewsId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "Find to token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json();\r",
+									"\r",
+									"if (response && response.id) {\r",
+									"  pm.environment.set(\"UserId\", response.id);\r",
+									"  console.log(\"Збережено UserId:\", response.id);\r",
+									"} else {\r",
+									"  console.warn(\"UserId не знайдено\");\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/find",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"find"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"updateName\", \"UpdateTest\");\r",
+									"pm.environment.set(\"updatePhone\", \"UpdateUser\");"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\":\"{{updateName}}\",\r\n    \"phone\":\"{{updatePhone}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:UserId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":UserId"
+							],
+							"variable": [
+								{
+									"key": "UserId",
+									"value": "{{UserId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json();\r",
+									"\r",
+									"if (response.entities && response.entities.length > 0) {\r",
+									"    let users = response.entities.filter(u => u.role === \"User\");\r",
+									"\r",
+									"    if (users.length > 0) {\r",
+									"        let randomUser = users[Math.floor(Math.random() * users.length)];\r",
+									"        pm.environment.set(\"RoleUserId\", randomUser.id);\r",
+									"\r",
+									"        console.log(\"Збережено RoleUserId:\", randomUser.id, \"| Ім'я:\", randomUser.firstName);\r",
+									"    } else {\r",
+									"        console.warn(\"Користувачів з роллю 'User' не знайдено\");\r",
+									"    }\r",
+									"} else {\r",
+									"    console.warn(\"entities порожній або відсутній\");\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users?order=ASC&page=1&limit=6&firstName={{firstName}}&lastName={{lastName}}&email={{email}}&phone={{phone}}&age={{age}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "order",
+									"value": "ASC"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "6"
+								},
+								{
+									"key": "firstName",
+									"value": "{{firstName}}"
+								},
+								{
+									"key": "lastName",
+									"value": "{{lastName}}"
+								},
+								{
+									"key": "email",
+									"value": "{{email}}"
+								},
+								{
+									"key": "phone",
+									"value": "{{phone}}"
+								},
+								{
+									"key": "age",
+									"value": "{{age}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete another user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/exclude/:RoleUserId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"exclude",
+								":RoleUserId"
+							],
+							"variable": [
+								{
+									"key": "RoleUserId",
+									"value": "{{RoleUserId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Make another user an administrator",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/role/:RoleUserId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"role",
+								":RoleUserId"
+							],
+							"variable": [
+								{
+									"key": "RoleUserId",
+									"value": "{{RoleUserId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete your account",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/delete/:UserId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"delete",
+								":UserId"
+							],
+							"variable": [
+								{
+									"key": "UserId",
+									"value": "{{UserId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "key",
+				"value": "X-API-Key",
+				"type": "string"
+			},
+			{
+				"key": "value",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://farming-simulator.pstmn.io"
+		}
+	]
+}
